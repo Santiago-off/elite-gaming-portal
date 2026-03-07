@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* Tus estilos personalizados debajo */
+@theme {
+  --color-brand-dark: #0a0a0b;
+  --color-brand-card: #121214;
+  --color-brand-red: #e61e25;
+  --color-brand-blue: #0056ff;
+}
