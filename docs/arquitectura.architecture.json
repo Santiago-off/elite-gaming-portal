@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Portal de torneos",
+    "output": "arquitectura.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "rutas",
+        "label": "Rutas",
+        "focus": ["navegador", "router", "paginas"],
+        "note": "Cuatro rutas resueltas en el cliente, con transición animada al cambiar de una a otra."
+      },
+      {
+        "id": "capas",
+        "label": "Capas de componentes",
+        "focus": ["paginas", "widgets", "ui"],
+        "note": "Las páginas componen widgets de dominio, y esos widgets se apoyan en componentes base reutilizables."
+      },
+      {
+        "id": "marco",
+        "label": "Marco común",
+        "focus": ["paginas", "layout"],
+        "note": "Navbar y Sidebar se mantienen fuera de las páginas para no repetirlos en cada una."
+      }
+    ]
+  },
+  "components": [
+    { "id": "navegador", "type": "external", "label": "Usuario", "sublabel": "Navegador", "pos": [40, 353], "size": [150, 60] },
+    { "id": "router", "type": "frontend", "label": "React Router 7", "sublabel": "rutas en cliente", "pos": [270, 350], "size": [180, 66] },
+    { "id": "paginas", "type": "frontend", "label": "Páginas", "sublabel": "acceso · torneos · ranking", "pos": [580, 350], "size": [190, 66], "tag": "datos de ejemplo" },
+    { "id": "layout", "type": "frontend", "label": "Layout", "sublabel": "Navbar · Sidebar", "pos": [900, 120], "size": [190, 62] },
+    { "id": "widgets", "type": "frontend", "label": "Widgets", "sublabel": "de dominio", "pos": [900, 290], "size": [190, 62] },
+    { "id": "ui", "type": "frontend", "label": "Componentes base", "sublabel": "Button · Card · Input", "pos": [900, 460], "size": [190, 62] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "src/components", "wraps": ["layout", "widgets", "ui"] }
+  ],
+  "connections": [
+    { "id": "entrada", "from": "navegador", "to": "router", "label": "HTTPS", "variant": "emphasis" },
+    { "id": "ruta", "from": "router", "to": "paginas", "label": "4 rutas", "variant": "emphasis" },
+    { "id": "marco", "from": "paginas", "to": "layout", "label": "marco común", "variant": "dashed", "via": [[800, 383], [800, 151]], "labelAt": [800, 220] },
+    { "id": "compone", "from": "paginas", "to": "widgets", "label": "compone", "variant": "emphasis", "labelAt": [860, 335] },
+    { "id": "reutiliza", "from": "widgets", "to": "ui", "label": "reutiliza", "labelAt": [995, 406] }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Tres capas",
+      "items": [
+        "Componentes base sin lógica: Button, Card, Input",
+        "Widgets de dominio: tarjeta de torneo, filtros, inscripción",
+        "Las páginas solo componen, no dibujan"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Interfaz",
+      "items": [
+        "Tailwind CSS 4 sobre Vite",
+        "framer-motion para la transición entre rutas",
+        "Iconografía con lucide-react"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Alcance",
+      "items": [
+        "Prototipo de interfaz, sin servidor ni sesión real",
+        "Torneos y clasificación escritos en el propio componente",
+        "Pensado para enchufarle datos reales sin tocar la vista"
+      ]
+    }
+  ]
+}
